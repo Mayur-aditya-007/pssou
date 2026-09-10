@@ -36,6 +36,11 @@ export default function ProgrammeExplorer({
     if (onSelectProgramme) {
       onSelectProgramme(progId);
     }
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(
+        new CustomEvent("pssou:select-course", { detail: { programmeId: progId } })
+      );
+    }
     const formElement = document.getElementById("inquiry-form");
     if (formElement) {
       formElement.scrollIntoView({ behavior: "smooth" });
