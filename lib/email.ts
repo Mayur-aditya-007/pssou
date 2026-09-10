@@ -53,106 +53,33 @@ function createTransporter() {
 }
 
 /**
- * Generates an institutional PSSOU HTML email template for OTP verification
+ * Generates a clean, lightweight HTML email template without heavy phishing triggers
  */
 function generateEmailHtml(fullName: string, otp: string, programmeName?: string): string {
   return `
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PSSOU Admission Verification Code</title>
+  <title>Verification Code</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f7f9; font-family: 'Segoe UI', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
-  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f7f9; padding: 30px 15px;">
-    <tr>
-      <td align="center">
-        <!-- Main Email Container -->
-        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 580px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #e2e8f0;">
-          
-          <!-- Institutional Header Bar -->
-          <tr>
-            <td style="background-color: #1a5f7a; padding: 25px 30px; text-align: center; border-bottom: 4px solid #159895;">
-              <h1 style="color: #ffffff; margin: 0; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; line-height: 1.3;">
-                Pt. Sundarlal Sharma (Open) University Chhattisgarh
-              </h1>
-              <p style="color: #5be6e3; margin: 6px 0 0 0; font-size: 13px; font-weight: 500;">
-                पण्डित सुन्दरलाल शर्मा (मुक्त) विश्वविद्यालय छत्तीसगढ़, बिलासपुर
-              </p>
-              <p style="color: #ffffff; margin: 4px 0 0 0; font-size: 11px; opacity: 0.85; text-transform: uppercase; letter-spacing: 1px;">
-                (Recognized by UGC & UGC-DEB | Estd. 2005)
-              </p>
-            </td>
-          </tr>
-
-          <!-- Email Content Body -->
-          <tr>
-            <td style="padding: 35px 35px 25px 35px; color: #1e293b;">
-              <h2 style="font-size: 18px; color: #1a5f7a; margin: 0 0 15px 0; font-weight: 600;">
-                Pre-Admission Verification Code / प्रवेश सत्यापन कोड
-              </h2>
-              <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 15px 0;">
-                Dear <strong>${fullName}</strong>,
-              </p>
-              <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 20px 0;">
-                Thank you for submitting your pre-admission inquiry for <strong>${programmeName || "Distance Education Programmes"}</strong> for the <strong>JULY-JUNE 2026-27</strong> session at PSSOU.
-              </p>
-              <p style="font-size: 14px; line-height: 1.6; color: #334155; margin: 0 0 25px 0;">
-                Please use the following 6-digit One-Time Password (OTP) to complete your verification and proceed to the official university portal:
-              </p>
-
-              <!-- OTP Code Display Card -->
-              <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 25px;">
-                <tr>
-                  <td align="center" style="background-color: #f8fafc; border: 2px dashed #159895; border-radius: 10px; padding: 20px;">
-                    <span style="font-size: 34px; font-weight: 800; letter-spacing: 8px; color: #1a5f7a; font-family: 'Courier New', Courier, monospace; display: inline-block;">
-                      ${otp}
-                    </span>
-                    <div style="font-size: 12px; color: #64748b; margin-top: 8px; font-weight: 500;">
-                      Valid for <strong>10 minutes</strong> | Max 5 attempts
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
-              <div style="background-color: #fffbeb; border-left: 4px solid #fb8500; padding: 12px 16px; border-radius: 6px; margin-bottom: 25px;">
-                <p style="font-size: 12px; color: #92400e; margin: 0; line-height: 1.5;">
-                  <strong>Important:</strong> If you did not initiate this inquiry, please disregard this email. Never share your verification OTP with unauthorized third parties.
-                </p>
-              </div>
-
-              <p style="font-size: 13px; line-height: 1.5; color: #64748b; margin: 0;">
-                Regards,<br>
-                <strong>Admissions & Central Facilitation Cell</strong><br>
-                Pt. Sundarlal Sharma (Open) University Chhattisgarh, Bilaspur
-              </p>
-            </td>
-          </tr>
-
-          <!-- Footer -->
-          <tr>
-            <td style="background-color: #f1f5f9; padding: 20px 30px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 11px; color: #64748b; line-height: 1.5;">
-              <p style="margin: 0 0 4px 0;">
-                PSSOU Bilaspur Campus: Koni-Birkona Road, Bilaspur (C.G.) – 495009
-              </p>
-              <p style="margin: 0;">
-                Official Website: <a href="https://pssou.net" target="_blank" style="color: #1a5f7a; text-decoration: none; font-weight: 600;">pssou.net</a> | Mirror: <a href="http://pssou.ac.in" target="_blank" style="color: #1a5f7a; text-decoration: none; font-weight: 600;">pssou.ac.in</a>
-              </p>
-            </td>
-          </tr>
-
-        </table>
-      </td>
-    </tr>
-  </table>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background-color: #f9fafb;">
+  <div style="max-width: 500px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #e5e7eb;">
+    <h2 style="color: #111827; margin-top: 0; font-size: 18px;">Verification Code</h2>
+    <p>Hello ${fullName},</p>
+    <p>Your verification code for ${programmeName ? programmeName : "admission inquiry"} is:</p>
+    <div style="background-color: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center; margin: 20px 0;">
+      <span style="font-size: 28px; font-weight: bold; letter-spacing: 6px; color: #1e40af;">${otp}</span>
+    </div>
+    <p style="font-size: 13px; color: #6b7280; margin-bottom: 0;">This code will expire in 10 minutes. If you did not request this, you can safely ignore this email.</p>
+  </div>
 </body>
 </html>
   `;
 }
 
 /**
- * Sends branded OTP email using Nodemailer or falls back to console logging
+ * Sends OTP email using Nodemailer or falls back to console logging
  */
 export async function sendOtpEmail({
   to,
@@ -163,8 +90,13 @@ export async function sendOtpEmail({
   try {
     const transporter = createTransporter();
     const user = process.env.SMTP_USER?.trim();
-    const fromAddress =
-      process.env.SMTP_FROM || (user ? `"PSSOU Admissions" <${user}>` : '"PSSOU Admissions" <admissions@pssou.net>');
+    const host = process.env.SMTP_HOST?.trim() || "";
+
+    // When using Gmail SMTP, the 'from' address MUST match SMTP_USER to avoid SPF/DMARC spam penalties
+    let fromAddress = process.env.SMTP_FROM?.trim();
+    if (!fromAddress || host.includes("gmail")) {
+      fromAddress = user ? `"Admissions Verification" <${user}>` : '"Admissions Verification" <admissions@pssou.net>';
+    }
 
     const htmlContent = generateEmailHtml(fullName, otp, programmeName);
 
@@ -184,8 +116,8 @@ export async function sendOtpEmail({
     const info = await transporter.sendMail({
       from: fromAddress,
       to,
-      subject: `PSSOU Admission Verification Code: ${otp} (JULY-JUNE 2026-27)`,
-      text: `Dear ${fullName},\n\nYour 6-digit PSSOU Admission Verification OTP is: ${otp}\n\nThis code expires in 10 minutes.\n\nRegards,\nPSSOU Admissions Team`,
+      subject: `Your verification code is ${otp}`,
+      text: `Hello ${fullName},\n\nYour verification code is: ${otp}\n\nThis code expires in 10 minutes.\n\nIf you did not request this, please ignore this email.`,
       html: htmlContent,
     });
 
