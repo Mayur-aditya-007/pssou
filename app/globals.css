@@ -1,26 +1,167 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* PSSOU Verified Brand Color Tokens */
+    --pssou-primary: #1a5f7a;
+    --pssou-primary-dark: #13465b;
+    --pssou-primary-light: #2482a6;
+    --pssou-secondary: #159895;
+    --pssou-secondary-hover: #5be6e3;
+    --pssou-primary-accent: #4f46e5;
+    
+    /* WhatsApp Institutional Green */
+    --pssou-whatsapp-dark: #075E54;
+    --pssou-whatsapp-medium: #128C7E;
+    --pssou-whatsapp-bright: #25D366;
+    
+    /* Status & Alerts */
+    --pssou-emerald: #10b981;
+    --pssou-emerald-dark: #059669;
+    --pssou-accent-orange: #fb8500;
+    --pssou-danger: #dc3545;
+    --pssou-danger-dark: #b91b10;
+
+    /* Backgrounds & Neutrals */
+    --pssou-bg-light: #f8f9fa;
+    --pssou-bg-soft: #f8fafc;
+    --pssou-bg-dark: #1e1b18;
+    --pssou-card-border: #e2e8f0;
+    --pssou-table-border: #f1f5f9;
+
+    /* Text Colors */
+    --pssou-text-main: #1e293b;
+    --pssou-text-dark: #2d3436;
+    --pssou-text-muted: #636e72;
+    --pssou-text-light: #ffffff;
   }
 }
 
+@theme {
+  --color-pssou-primary: #1a5f7a;
+  --color-pssou-primary-dark: #13465b;
+  --color-pssou-primary-light: #2482a6;
+  --color-pssou-secondary: #159895;
+  --color-pssou-secondary-hover: #5be6e3;
+  --color-pssou-primary-accent: #4f46e5;
+  
+  --color-pssou-wa-dark: #075E54;
+  --color-pssou-wa-medium: #128C7E;
+  --color-pssou-wa-bright: #25D366;
+  
+  --color-pssou-emerald: #10b981;
+  --color-pssou-emerald-dark: #059669;
+  --color-pssou-accent-orange: #fb8500;
+  --color-pssou-danger: #dc3545;
+  --color-pssou-danger-dark: #b91b10;
+
+  --color-pssou-bg-light: #f8f9fa;
+  --color-pssou-bg-soft: #f8fafc;
+  --color-pssou-bg-dark: #1e1b18;
+  --color-pssou-card-border: #e2e8f0;
+
+  --color-pssou-text-main: #1e293b;
+  --color-pssou-text-dark: #2d3436;
+  --color-pssou-text-muted: #636e72;
+
+  --font-heading: 'Raleway', 'Segoe UI', system-ui, sans-serif;
+  --font-condensed: 'Roboto Condensed', 'Roboto', 'Noto Sans Devanagari', sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--pssou-bg-light);
+  color: var(--pssou-text-main);
+  font-family: var(--font-condensed);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure all form inputs, dropdowns, and options have high-contrast solid black text */
+input, select, textarea {
+  color: #0f172a !important;
+}
+
+select option, select optgroup {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Ticker Infinite Continuous Marquee */
+@keyframes continuousMarquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  white-space: nowrap;
+  animation: continuousMarquee 42s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Institutional Card Styling */
+.pssou-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid var(--pssou-card-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease-in-out;
+}
+
+.pssou-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.pssou-card-primary-accent {
+  background: #ffffff;
+  border-left: 5px solid var(--pssou-primary);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.pssou-card-success-accent {
+  background: #ffffff;
+  border-left: 5px solid var(--pssou-emerald);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Cute Dark Background Pattern from official portal */
+.cute-dark-bg {
+  background-color: #1e1b18;
+  background-image: radial-gradient(#2d2824 20%, transparent 20%), 
+                    radial-gradient(#2d2824 20%, transparent 20%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+/* Custom Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
