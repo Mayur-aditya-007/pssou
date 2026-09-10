@@ -10,7 +10,7 @@ export default function Navbar() {
   const [studentServicesOpen, setStudentServicesOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 shadow-md">
+    <header className="sticky top-0 z-40 shadow-md">
       {/* 1. Official WhatsApp Channel Continuous Scrolling Ticker */}
       <div className="bg-[#075E54] text-white h-11 relative overflow-hidden flex items-center shadow-inner text-sm border-b border-[#128C7E]">
         {/* Left Fixed Badge */}

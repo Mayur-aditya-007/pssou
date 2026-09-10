@@ -480,14 +480,14 @@ export default function InquiryForm({
         </button>
       </div>
 
-      {/* 3. Mobile Modal Overlay (Appears automatically first on mobile) */}
+      {/* 3. Mobile Modal Overlay (Appears automatically first on mobile, fully above navbar) */}
       {isMobileModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/75 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl max-w-lg w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200 animate-in slide-in-from-bottom duration-300">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] sm:max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 animate-in zoom-in-95 duration-200 my-auto">
             
-            {/* Modal Header with Close Button */}
-            <div className="bg-[#1a5f7a] text-white p-4 sm:p-5 border-b-4 border-[#159895] relative flex items-start justify-between">
-              <div>
+            {/* Sticky/Fixed Modal Header with Close Button */}
+            <div className="shrink-0 bg-[#1a5f7a] text-white p-4 sm:p-5 border-b-4 border-[#159895] relative flex items-center justify-between z-10 shadow-xs">
+              <div className="pr-2">
                 <div className="inline-block px-2 py-0.5 rounded-full bg-[#159895] text-white text-[11px] font-bold uppercase tracking-wider mb-1">
                   Session JULY-JUNE 2026-27
                 </div>
@@ -495,7 +495,7 @@ export default function InquiryForm({
                   Pre-Admission Inquiry Form
                 </h3>
                 <p className="text-xs text-[#5be6e3] mt-0.5">
-                  प्रवेश पूर्व पूछताछ फॉर्म
+                  प्रवेश पूर्व पूछताछ फॉर्म | PSSOU Bilaspur
                 </p>
               </div>
 
@@ -504,7 +504,7 @@ export default function InquiryForm({
                 type="button"
                 onClick={() => setIsMobileModalOpen(false)}
                 aria-label="Close modal"
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer shrink-0 ml-2"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer shrink-0 border border-white/20"
               >
                 <X className="w-5 h-5" />
               </button>
