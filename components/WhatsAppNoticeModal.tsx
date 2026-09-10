@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { MessageSquare, Mail, ArrowRight, ShieldCheck } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -19,15 +20,20 @@ export default function WhatsAppNoticeModal({
   devOtp,
 }: WhatsAppNoticeModalProps) {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!isOpen || !mounted) return null;
 
   const handleProceed = () => {
     router.push(`/verify?lead=${encodeURIComponent(leadId)}`);
   };
 
-  return (
-    <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
+  return createPortal(
+    <div className="fixed inset-0 z-[100000] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
       <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 animate-in zoom-in-95 duration-200">
         
         {/* Modal Header */}
@@ -89,6 +95,7 @@ export default function WhatsAppNoticeModal({
         </div>
 
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

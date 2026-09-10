@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Programme, AttributionData } from "@/lib/types";
 import { captureAttribution } from "@/lib/attribution";
 import { trackLeadSubmitted } from "@/lib/analytics";
@@ -35,6 +36,7 @@ export default function InquiryForm({
   selectedProgrammeId,
   onProgrammeChange,
 }: InquiryFormProps) {
+  const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -58,6 +60,23 @@ export default function InquiryForm({
   const [createdLeadId, setCreatedLeadId] = useState("");
   const [maskedEmail, setMaskedEmail] = useState("");
   const [devOtp, setDevOtp] = useState<string | undefined>(undefined);
+
+  // Set mounted on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll when mobile modal is open
+  useEffect(() => {
+    if (isMobileModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileModalOpen]);
 
   // Capture Attribution & preselect course on load & Auto-open modal on mobile
   useEffect(() => {
@@ -480,13 +499,24 @@ export default function InquiryForm({
         </button>
       </div>
 
-      {/* 3. Mobile Modal Overlay (Appears automatically first on mobile, fully above navbar) */}
-      {isMobileModalOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] sm:max-h-[90vh] flex flex-col overflow-hidden border border-slate-200 animate-in zoom-in-95 duration-200 my-auto">
+      {/* 3. Mobile Modal Overlay (Rendered directly in document.body via Portal to guarantee 100% top layer & scroll) */}
+      {mounted && isMobileModalOpen && createPortal(
+        <div 
+          className="fixed inset-0 z-[99999] flex flex-col items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+          style={{ width: "100vw", height: "100dvh" }}
+        >
+          {/* Backdrop Click Dismiss */}
+          <div 
+            className="absolute inset-0 -z-10" 
+            onClick={() => setIsMobileModalOpen(false)}
+            aria-hidden="true" 
+          />
+
+          {/* Modal Container */}
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full h-[88dvh] max-h-[88dvh] flex flex-col overflow-hidden border border-slate-200 animate-in zoom-in-95 duration-200 my-auto">
             
-            {/* Sticky/Fixed Modal Header with Close Button */}
-            <div className="shrink-0 bg-[#1a5f7a] text-white p-4 sm:p-5 border-b-4 border-[#159895] relative flex items-center justify-between z-10 shadow-xs">
+            {/* Locked/Sticky Top Header with Close Button */}
+            <div className="shrink-0 bg-[#1a5f7a] text-white p-4 sm:p-5 border-b-4 border-[#159895] relative flex items-center justify-between z-10 shadow-sm">
               <div className="pr-2">
                 <div className="inline-block px-2 py-0.5 rounded-full bg-[#159895] text-white text-[11px] font-bold uppercase tracking-wider mb-1">
                   Session JULY-JUNE 2026-27
@@ -510,13 +540,14 @@ export default function InquiryForm({
               </button>
             </div>
 
-            {/* Scrollable Modal Form Content */}
-            <div className="overflow-y-auto overscroll-contain flex-1">
+            {/* Guaranteed Scrollable Form Content (min-h-0 enables flex child scrolling) */}
+            <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
               {renderFormContent(true)}
             </div>
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* 4. Sticky Mobile Floating CTA Button (Visible when modal is closed on mobile) */}
